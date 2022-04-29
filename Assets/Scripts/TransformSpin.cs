@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class TransformSpin : MonoBehaviour
 {
-    [SerializeField] float spinSpeed; // how fast we spin
+    [SerializeField] float spinSpeedY; // how fast we spin
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.rotation = Quaternion.Euler(new Vector3(0, transform.rotation.y + spinSpeed, 0));
+        // Rotate the object around its local y axis at 1 degree per second
+        transform.Rotate(transform.up * spinSpeedY * Time.deltaTime);
     }
 }
