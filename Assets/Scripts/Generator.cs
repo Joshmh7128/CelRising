@@ -14,14 +14,16 @@ public class Generator : MonoBehaviour
     [SerializeField] float xAdditorialMin, xAdditorialMax;
     [SerializeField] float zAdditorialMin, zAdditorialMax;
     [SerializeField] float yAdditorialMin, yAdditorialMax;
-    [SerializeField] float lowPoint, highPoint; // our lowest and highest points in the mesh
+    [SerializeField] float lowPoint, highPoint, midPoint, lowQuarterPoint, highQuarterPoint, highLowDistance, waterOffset; // our lowest and highest points in the objects
+    Transform highTrans, lowTrans; Vector3 lowPos, highPos;
     public enum tileTypes
     {
         empty, 
         sand,
         grass,
         dirt,
-        rock
+        rock,
+        water
     }
 
     private void Start()
@@ -53,6 +55,7 @@ public class Generator : MonoBehaviour
         yFacIncrease = Random.Range(yFacIncreaseMin, yFacIncreaseMax);
         xAdditorial = Random.Range(xAdditorialMin, xAdditorialMax);
         zAdditorial = Random.Range(zAdditorialMin, zAdditorialMax);
+        lowPoint = 0; highPoint = 0; midPoint = 0;
 
         // check the array to make sure there are no objects in it
         foreach (GameObject tile in tiles)
@@ -62,8 +65,6 @@ public class Generator : MonoBehaviour
                 Destroy(tile);
             }
         }
-
-
 
         // place prefab objects from array
         // loop X
@@ -81,15 +82,28 @@ public class Generator : MonoBehaviour
                     Mathf.Cos(z + zAdditorial) * (yFacOffset += (yFacIncrease * Random.Range(-1, 1)))
                     ) + yAdditorial;
 
-                // set low and high points
-                if (yPos < lowPoint)
-                { lowPoint = yPos;  }   
-                
-                if (yPos > highPoint)
-                { highPoint = yPos;  }
-
                 // spawn a random tile at the correct position
                 tiles[x, z] = Instantiate(tileTypeList[(int)tileTypes.empty], new Vector3(x, yPos, z), Quaternion.identity);
+
+                // set low and high points
+                if (yPos < lowPoint)
+                {
+                    lowPoint = yPos;
+                    lowTrans = tiles[x, z].transform;
+                }
+
+                if (yPos > highPoint)
+                {
+                    highPoint = yPos;
+                    highTrans = tiles[x, z].transform;
+                }
+
+                highLowDistance = Mathf.Abs(lowPoint - highPoint);
+
+                // calculate points from the high point
+                midPoint = highPoint - (highLowDistance / 2);
+                lowQuarterPoint = lowPoint + (highLowDistance / 4);
+                highQuarterPoint = highPoint - (highLowDistance / 4);
             }
         }
 
@@ -99,17 +113,33 @@ public class Generator : MonoBehaviour
             // loop j
             for (int j = 0; j < zGenLimit; j++)
             {
-                float midpoint = (lowPoint + highPoint) / 2;
+                // get the distance from the highest thing to the lowest thing
 
-                if (tiles[i, j].transform.position.y > midpoint)
+                // 0 to quarter
+                if (tiles[i, j].transform.position.y <= lowQuarterPoint)
                 {
-                    // destroy each one
                     tiles[i, j] = Instantiate(tileTypeList[(int)tileTypes.sand], tiles[i, j].transform);
-                }
-                else
+                    // then make water above
+                    GameObject water = Instantiate(tileTypeList[(int)tileTypes.water], new Vector3(i, lowPos.y + waterOffset, j), Quaternion.identity);
+                    water.transform.parent = tiles[i, j].transform;
+                } else 
+                // quater to mid
+                if (tiles[i, j].transform.position.y >= lowQuarterPoint && tiles[i, j].transform.position.y < midPoint)
+                {
+                    tiles[i, j] = Instantiate(tileTypeList[(int)tileTypes.dirt], tiles[i, j].transform);
+                } else
+                // mid to high quarter
+                if (tiles[i, j].transform.position.y >= midPoint && tiles[i, j].transform.position.y < highQuarterPoint)
                 {
                     tiles[i, j] = Instantiate(tileTypeList[(int)tileTypes.grass], tiles[i, j].transform);
                 }
+                else
+                // high and above
+                if (tiles[i, j].transform.position.y >= highQuarterPoint)
+                {
+                    tiles[i, j] = Instantiate(tileTypeList[(int)tileTypes.rock], tiles[i, j].transform);
+                }
+                
             }
         }
     }
