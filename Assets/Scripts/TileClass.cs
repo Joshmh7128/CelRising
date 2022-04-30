@@ -22,6 +22,14 @@ public class TileClass : MonoBehaviour
         player = FindObjectOfType<Player>();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CullTile();
+        }
+    }
+
     private void FixedUpdate()
     {
         if (player.heldTile == this)
@@ -32,6 +40,9 @@ public class TileClass : MonoBehaviour
         // run our hover lerp
         HoverShow();
     }
+
+    void CullTile()
+    { Destroy(gameObject); }
 
     // what to do when we are picked up
     public void OnPickup()

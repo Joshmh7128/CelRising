@@ -19,13 +19,27 @@ public class RecipeManager : MonoBehaviour
     public void RecipeChecker()
     {
         // simple dirt to sand
-        if (slot1.hasDirt + slot2.hasDirt + slot3.hasDirt > 2)
+        if (slot1.hasDirt + slot2.hasDirt + slot3.hasDirt == 3)
         {
             // remove our crafting materials
-            CleanSlots(); 
-            // spawn our new one
-            Instantiate(generator.tileTypeList[(int)Generator.tileTypes.sand], resultSpot.position, Quaternion.identity, null).GetComponent<TileClass>().inSlot = true;
+            CraftItem(Generator.tileTypes.sand); 
         }
+
+        // 2 dirt 1 rock to grass
+        if ((slot1.hasDirt + slot2.hasDirt + slot3.hasDirt == 2) && (slot1.hasRock + slot2.hasRock + slot3.hasRock == 1))
+        {
+            // remove our crafting materials
+            CraftItem(Generator.tileTypes.grass);
+        }
+    }
+
+    void CraftItem(Generator.tileTypes tileType)
+    {
+        // remove our crafting materials
+        CleanSlots();
+        // spawn our new one
+        Instantiate(generator.tileTypeList[(int)tileType], resultSpot.position, Quaternion.identity, null).GetComponent<TileClass>().inSlot = true;
+
     }
 
     private void CleanSlots()

@@ -7,6 +7,7 @@ public class Mouse : MonoBehaviour
     [SerializeField] Player player;
     [SerializeField] TileClass highlightedTile;
     [SerializeField] SlotClass highlightedSlot;
+    [SerializeField] AudioSource pickupAudio, placeAudio;
 
     private void Update()
     {
@@ -16,6 +17,7 @@ public class Mouse : MonoBehaviour
             // if we press the mouse button
             if (Input.GetMouseButtonDown(0))
             {
+                pickupAudio.Play();
                 highlightedSlot = null;
                 // pick it up
                 highlightedTile.OnPickup();
@@ -26,7 +28,8 @@ public class Mouse : MonoBehaviour
             // if we right click
             if (Input.GetMouseButtonDown(1))
             {
-                // relace it it
+                placeAudio.Play();
+                // replace it it
                 highlightedTile.OnCycle();
             }
         }
@@ -36,6 +39,7 @@ public class Mouse : MonoBehaviour
             // if we press the mouse button
             if (Input.GetMouseButtonDown(0))
             {
+                placeAudio.Play();
                 // replace the tile
                 player.heldTile.OnPlace(highlightedTile.transform.position, highlightedTile);
                 highlightedTile.OnReplace();
@@ -54,6 +58,7 @@ public class Mouse : MonoBehaviour
             // if we press the mouse button
             if (Input.GetMouseButtonDown(0))
             {
+                placeAudio.Play();
                 // make sure we do not have a highlighted tile
                 highlightedTile = null;
                 // place our tile in the slot
