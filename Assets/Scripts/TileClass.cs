@@ -8,30 +8,58 @@ public class TileClass : MonoBehaviour
     public bool isHover = false;
     float highlightAlphaLerp;
     [SerializeField] float highlightAlphaLerpSpeed; // how fast do we lerp too and from our current alpha state
-
+    Player player; 
     // our gameobject
     [SerializeField] Renderer highlightRenderer;
 
     private void Start()
     {
-
+        // find our player controller
+        player = FindObjectOfType<Player>();
     }
-
 
     private void FixedUpdate()
     {
-        // check and update our hover lerp
-        if (isHover)
-        { highlightAlphaLerp = 1; } else
-        { highlightAlphaLerp = 0; }
+        if (player.heldTile == this)
+        {
+            transform.position = player.mouseHoldPoint.position;
+        }
 
         // run our hover lerp
-        HoverLerp();
+        HoverShow();
     }
 
-    void HoverLerp()
+    public void OnPickup()
     {
-        Mathf.Lerp(highlightRenderer.material.color.a, highlightAlphaLerp, highlightAlphaLerpSpeed*Time.deltaTime);
+
+    }    
+
+    void HoverShow()
+    {        
+        // check and update our hover lerp
+        if (isHover)
+        {
+            highlightRenderer.enabled = true;
+        }
+        else
+        {
+            highlightRenderer.enabled = false;
+        }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == "Mouse")
+        {
+            isHover = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.tag == "Mouse")
+        {
+            isHover = false;
+        }
+    }
 }

@@ -6,9 +6,12 @@ public class Player : MonoBehaviour
 {
     [SerializeField] LayerMask ignore;
     [SerializeField] GameObject highlightedObject; // the object we are highlighting
-    [SerializeField] Transform mouseTransform; // our mouse transform
+    public Transform mouseTransform, mouseHoldPoint; // our mouse transform
     [SerializeField] float mouseLerpSpeed; // our mouse lerp speed
     RaycastHit hit;
+
+    // stuff for picking up and placing tiles
+    public TileClass heldTile; // the tile we are holding
 
     private void Start()
     {
