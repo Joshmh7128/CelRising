@@ -37,7 +37,7 @@ public class Mouse : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 // replace the tile
-                player.heldTile.OnPlace(highlightedTile.transform.position);
+                player.heldTile.OnPlace(highlightedTile.transform.position, highlightedTile);
                 highlightedTile.OnReplace();
             }
 
@@ -58,7 +58,7 @@ public class Mouse : MonoBehaviour
                 highlightedTile = null;
                 // place our tile in the slot
                 highlightedSlot.heldTile = player.heldTile;
-                player.heldTile.OnPlaceInSlot(highlightedSlot.transform.position);
+                player.heldTile.OnPlaceInSlot(highlightedSlot.transform.position, highlightedSlot);
                 highlightedSlot = null;
             }
         }
@@ -69,16 +69,13 @@ public class Mouse : MonoBehaviour
     {
         if (other.transform.tag == "Tile")
         {
-            Debug.Log("tile highlighted");
             highlightedTile = other.transform.gameObject.GetComponent<TileClass>();
         } else if (other.transform.tag == "Slot")
         {
-            Debug.Log("slot highlighted");
             highlightedSlot = other.transform.gameObject.GetComponent<SlotClass>();
             highlightedTile = null;
         } else
         {
-            Debug.Log("nothing highlighted");
             highlightedTile = null;
             highlightedSlot = null;
         }

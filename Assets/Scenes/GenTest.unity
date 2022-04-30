@@ -1558,7 +1558,7 @@ GameObject:
   - component: {fileID: 456598258}
   - component: {fileID: 456598261}
   m_Layer: 0
-  m_Name: Slot (2)
+  m_Name: Slot 3
   m_TagString: Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1572,8 +1572,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 456598256}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 0.389, z: 1.09}
-  m_LocalScale: {x: 1.1741, y: 0.8824419, z: 1.1741}
+  m_LocalPosition: {x: 2.5, y: 0.47, z: 1.09}
+  m_LocalScale: {x: 1.1741, y: 0.539322, z: 1.1741}
   m_Children: []
   m_Father: {fileID: 422274815}
   m_RootOrder: 6
@@ -1589,7 +1589,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 0.46, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &456598259
 MeshRenderer:
@@ -1657,6 +1657,7 @@ MonoBehaviour:
   hasGrass: 0
   hasDirt: 0
   heldTile: {fileID: 0}
+  recipeManager: {fileID: 0}
 --- !u!1 &464889554
 GameObject:
   m_ObjectHideFlags: 0
@@ -3759,7 +3760,7 @@ GameObject:
   - component: {fileID: 812547776}
   - component: {fileID: 812547779}
   m_Layer: 0
-  m_Name: Slot (1)
+  m_Name: Slot 2
   m_TagString: Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3773,8 +3774,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 812547774}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.5, y: 0.389, z: 1.09}
-  m_LocalScale: {x: 1.1741, y: 0.8824419, z: 1.1741}
+  m_LocalPosition: {x: -2.5, y: 0.47, z: 1.09}
+  m_LocalScale: {x: 1.1741, y: 0.539322, z: 1.1741}
   m_Children: []
   m_Father: {fileID: 422274815}
   m_RootOrder: 5
@@ -3790,7 +3791,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 0.46, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &812547777
 MeshRenderer:
@@ -3858,6 +3859,7 @@ MonoBehaviour:
   hasGrass: 0
   hasDirt: 0
   heldTile: {fileID: 0}
+  recipeManager: {fileID: 0}
 --- !u!1 &830386228
 GameObject:
   m_ObjectHideFlags: 0
@@ -5544,6 +5546,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1169206002}
+  - component: {fileID: 1169206003}
   m_Layer: 0
   m_Name: Recipe Manager
   m_TagString: Untagged
@@ -5565,6 +5568,22 @@ Transform:
   m_Father: {fileID: 422274815}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1169206003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169206001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49314632fd4dde34888540ac582d87f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slot1: {fileID: 1841994855}
+  slot2: {fileID: 812547779}
+  slot3: {fileID: 456598261}
+  resultSpot: {fileID: 1636058745}
 --- !u!1 &1174060456
 GameObject:
   m_ObjectHideFlags: 0
@@ -8553,7 +8572,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1636058745}
   m_Layer: 0
-  m_Name: HolderStart
+  m_Name: ResultStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9157,7 +9176,7 @@ GameObject:
   - component: {fileID: 1841994852}
   - component: {fileID: 1841994855}
   m_Layer: 0
-  m_Name: Slot
+  m_Name: Slot 1
   m_TagString: Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9171,8 +9190,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1841994850}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.389, z: 1.09}
-  m_LocalScale: {x: 1.1741, y: 0.8824419, z: 1.1741}
+  m_LocalPosition: {x: 0, y: 0.47, z: 1.09}
+  m_LocalScale: {x: 1.1741, y: 0.539322, z: 1.1741}
   m_Children: []
   m_Father: {fileID: 422274815}
   m_RootOrder: 4
@@ -9188,7 +9207,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 0.46, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1841994853
 MeshRenderer:
@@ -9256,6 +9275,7 @@ MonoBehaviour:
   hasGrass: 0
   hasDirt: 0
   heldTile: {fileID: 0}
+  recipeManager: {fileID: 0}
 --- !u!1 &1846394877
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ public class Generator : MonoBehaviour
     // this script generates a map
     [SerializeField] GameObject[,] tiles; // our 2d tileclass array
     [SerializeField] int xGenLimit, zGenLimit; // how far to the right and forward can we go?
-    [SerializeField] List<GameObject> tileTypeList; // our gameobject tile types
+    public List<GameObject> tileTypeList; // our gameobject tile types
     [SerializeField] float yFacOffset, yFacIncrease; // the offset of our sin wave and the increase overtime
     [SerializeField] float yFacOffsetMin, yFacOffsetMax;
     [SerializeField] float yFacIncreaseMin, yFacIncreaseMax;

@@ -363,6 +363,7 @@ MonoBehaviour:
   highlightAlphaLerpSpeed: 0.25
   highlightRenderer: {fileID: 9144044285747654329}
   belowTile: {fileID: 2322890767132968210, guid: a8130e1680cfe664bb77346f61110740, type: 3}
+  tileType: 3
 --- !u!1 &667488974662349101
 GameObject:
   m_ObjectHideFlags: 0
