@@ -10466,7 +10466,7 @@ MonoBehaviour:
   isHover: 0
   highlightAlphaLerpSpeed: 0.25
   highlightRenderer: {fileID: 5560743226149111011}
-  belowTile: {fileID: 2749918021534290111, guid: b3678d0d67d3ef54f86f8b392116722c, type: 3}
+  belowTile: {fileID: 5297512767498372453}
 --- !u!1 &5297512767662413014
 GameObject:
   m_ObjectHideFlags: 0

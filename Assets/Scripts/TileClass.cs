@@ -6,6 +6,7 @@ public class TileClass : MonoBehaviour
 {
     // are we being hovered over?
     public bool isHover = false;
+    bool inSlot; // are we in a slot?
     float highlightAlphaLerp;
     [SerializeField] float highlightAlphaLerpSpeed; // how fast do we lerp too and from our current alpha state
     Player player; 
@@ -33,7 +34,10 @@ public class TileClass : MonoBehaviour
     // what to do when we are picked up
     public void OnPickup()
     {
-        Instantiate(belowTile, transform.position, Quaternion.identity, null);
+        if (!inSlot)
+        { Instantiate(belowTile, transform.position, Quaternion.identity, null); } 
+        else if (inSlot)
+        { inSlot = false; }
         gameObject.GetComponent<Collider>().enabled = false;
     }    
 
@@ -45,9 +49,24 @@ public class TileClass : MonoBehaviour
         gameObject.GetComponent<Collider>().enabled = true;
     }
 
+    public void OnPlaceInSlot(Vector3 position)
+    {
+        inSlot = true;
+        player.heldTile = null;
+        transform.position = position;
+        gameObject.GetComponent<Collider>().enabled = true;
+    }
+
     // what to do when we are replaced
     public void OnReplace()
     {
+        Destroy(gameObject);
+    }
+
+    public void OnCycle()
+    {
+        if (!inSlot)
+        { Instantiate(belowTile, transform.position, Quaternion.identity, null); }
         Destroy(gameObject);
     }
 
