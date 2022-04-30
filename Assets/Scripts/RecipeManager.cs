@@ -24,7 +24,7 @@ public class RecipeManager : MonoBehaviour
             // remove our crafting materials
             CleanSlots(); 
             // spawn our new one
-            Instantiate(generator.tileTypeList[(int)Generator.tileTypes.sand], resultSpot.position, Quaternion.identity, null);
+            Instantiate(generator.tileTypeList[(int)Generator.tileTypes.sand], resultSpot.position, Quaternion.identity, null).GetComponent<TileClass>().inSlot = true;
         }
     }
 

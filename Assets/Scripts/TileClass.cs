@@ -6,7 +6,7 @@ public class TileClass : MonoBehaviour
 {
     // are we being hovered over?
     public bool isHover = false;
-    bool inSlot; // are we in a slot?
+    public bool inSlot; // are we in a slot?
     SlotClass slot;
     float highlightAlphaLerp;
     [SerializeField] float highlightAlphaLerpSpeed; // how fast do we lerp too and from our current alpha state
@@ -41,7 +41,10 @@ public class TileClass : MonoBehaviour
         else if (inSlot)
         {  
             inSlot = false;
-            slot.CheckSlot();
+            if (slot != null)
+            {
+                slot.CheckSlot();
+            }
             slot = null;
         }
         gameObject.GetComponent<Collider>().enabled = false;
@@ -53,7 +56,7 @@ public class TileClass : MonoBehaviour
         player.heldTile = null;
         transform.position = position;
         gameObject.GetComponent<Collider>().enabled = true;
-        if (targetTile.inSlot) { inSlot = true; }
+        if (targetTile.inSlot) { inSlot = true; } else { inSlot = false; }
     }
 
     public void OnPlaceInSlot(Vector3 position, SlotClass localSlot)

@@ -47,7 +47,7 @@ public class SlotClass : MonoBehaviour
 
     public void CleanSlot()
     {
-        Destroy(heldTile);
+        Destroy(heldTile.gameObject);
         ResetValues();
     }
 }
