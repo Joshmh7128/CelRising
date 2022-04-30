@@ -16,9 +16,20 @@ public class Mouse : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 // pick it up
-                highlightedTile.GetComponent<Collider>().enabled = false;
+                highlightedTile.OnPickup();
                 player.heldTile = highlightedTile;
                 highlightedTile = null;
+            }
+        }
+
+        if (highlightedTile && player.heldTile)
+        {
+            // if we press the mouse button
+            if (Input.GetMouseButtonDown(0))
+            {
+                // replace the tile
+                player.heldTile.OnPlace(highlightedTile.transform.position);
+                highlightedTile.OnReplace();
             }
         }
     }
@@ -28,7 +39,6 @@ public class Mouse : MonoBehaviour
         if (other.transform.tag == "Tile")
         {
             Debug.Log("tile highlighted");
-            if (!player.heldTile)
             highlightedTile = other.transform.gameObject.GetComponent<TileClass>();
         }
     }

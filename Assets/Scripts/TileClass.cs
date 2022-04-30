@@ -11,6 +11,7 @@ public class TileClass : MonoBehaviour
     Player player; 
     // our gameobject
     [SerializeField] Renderer highlightRenderer;
+    [SerializeField] GameObject belowTile; // the tile that is revealed underneath ours
 
     private void Start()
     {
@@ -29,10 +30,26 @@ public class TileClass : MonoBehaviour
         HoverShow();
     }
 
+    // what to do when we are picked up
     public void OnPickup()
     {
-
+        Instantiate(belowTile, transform.position, Quaternion.identity, null);
+        gameObject.GetComponent<Collider>().enabled = false;
     }    
+
+    // what to do when we are placed
+    public void OnPlace(Vector3 position)
+    {
+        player.heldTile = null;
+        transform.position = position;
+        gameObject.GetComponent<Collider>().enabled = true;
+    }
+
+    // what to do when we are replaced
+    public void OnReplace()
+    {
+        Destroy(gameObject);
+    }
 
     void HoverShow()
     {        
