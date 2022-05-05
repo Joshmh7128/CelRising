@@ -10,6 +10,9 @@ public class RecipeManager : MonoBehaviour
     [SerializeField] Transform resultSpot; // where our results go
     Generator generator; // our generator
 
+    // our final crafting values
+    float finalSand, finalGrass, finalDirt, finalRock;
+
     private void Start()
     {
         generator = FindObjectOfType<Generator>();
@@ -18,19 +21,24 @@ public class RecipeManager : MonoBehaviour
     // recipe checking
     public void RecipeChecker()
     {
-        // simple dirt to sand
-        if (slot1.hasDirt + slot2.hasDirt + slot3.hasDirt == 3)
+        // run our check values for each crafting resource
+        finalSand = slot1.hasSand + slot2.hasSand + slot3.hasSand;
+        finalDirt = slot1.hasDirt + slot2.hasDirt + slot3.hasDirt;
+        finalGrass = slot1.hasGrass + slot2.hasGrass + slot3.hasGrass;
+        finalRock = slot1.hasRock + slot2.hasRock + slot3.hasRock;
+
+        // all of our crafting checks
+        CraftingCheckWindmill();
+    }
+
+    void CraftingCheckWindmill()
+    {
+        // the recipe for windmill is 2 grass and 1 sand
+        if (finalGrass == 2 && finalSand == 1)
         {
-            // remove our crafting materials
-            CraftItem(Generator.tileTypes.sand); 
+            CraftItem(Generator.tileTypes.windmill);
         }
 
-        // 2 dirt 1 rock to grass
-        if ((slot1.hasDirt + slot2.hasDirt + slot3.hasDirt == 2) && (slot1.hasRock + slot2.hasRock + slot3.hasRock == 1))
-        {
-            // remove our crafting materials
-            CraftItem(Generator.tileTypes.grass);
-        }
     }
 
     void CraftItem(Generator.tileTypes tileType)
@@ -44,6 +52,11 @@ public class RecipeManager : MonoBehaviour
 
     private void CleanSlots()
     {
+        finalSand = 0;
+        finalGrass = 0; 
+        finalDirt = 0;
+        finalRock = 0;
+
         slot1.CleanSlot();
         slot2.CleanSlot();
         slot3.CleanSlot();

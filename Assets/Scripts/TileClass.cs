@@ -14,7 +14,8 @@ public class TileClass : MonoBehaviour
     // our gameobject
     [SerializeField] Renderer highlightRenderer;
     [SerializeField] GameObject belowTile; // the tile that is revealed underneath ours
-    public Generator.tileTypes tileType; 
+    public Generator.tileTypes tileType;
+    public float arrayPosX, arrayPosY; // our x and y position in the tile array
 
     private void Start()
     {
@@ -68,6 +69,10 @@ public class TileClass : MonoBehaviour
         transform.position = position;
         gameObject.GetComponent<Collider>().enabled = true;
         if (targetTile.inSlot) { inSlot = true; } else { inSlot = false; }
+
+        // set our x and y pos of the tile to be that of the tile we are replacing
+        arrayPosX = targetTile.arrayPosX;
+        arrayPosY = targetTile.arrayPosY;
     }
 
     public void OnPlaceInSlot(Vector3 position, SlotClass localSlot)

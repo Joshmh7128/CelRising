@@ -23,7 +23,8 @@ public class Generator : MonoBehaviour
         grass,
         dirt,
         rock,
-        water
+        water,
+        windmill
     }
 
     private void Start()
@@ -119,9 +120,7 @@ public class Generator : MonoBehaviour
                 if (tiles[i, j].transform.position.y <= lowQuarterPoint)
                 {
                     tiles[i, j] = Instantiate(tileTypeList[(int)tileTypes.sand], tiles[i, j].transform);
-                    // then make water above
-                    GameObject water = Instantiate(tileTypeList[(int)tileTypes.water], new Vector3(i, lowPos.y + waterOffset, j), Quaternion.identity);
-                    water.transform.parent = tiles[i, j].transform;
+
                 } else 
                 // quater to mid
                 if (tiles[i, j].transform.position.y >= lowQuarterPoint && tiles[i, j].transform.position.y < midPoint)
@@ -139,7 +138,11 @@ public class Generator : MonoBehaviour
                 {
                     tiles[i, j] = Instantiate(tileTypeList[(int)tileTypes.rock], tiles[i, j].transform);
                 }
-                
+
+                // then once the tile is placed, set it's position on it's class
+                tiles[i, j].GetComponent<TileClass>().arrayPosX = i;
+                tiles[i, j].GetComponent<TileClass>().arrayPosY = j;
+
             }
         }
     }
