@@ -9273,9 +9273,11 @@ MonoBehaviour:
   isPermanent: 0
   becomesPermanent: 0
   inSlot: 0
+  isBedrock: 1
   highlightAlphaLerpSpeed: 0.25
   highlightRenderer: {fileID: 5560743226149111011}
   belowTile: {fileID: 5297512767498372453}
   tileType: 4
   arrayPosX: 0
   arrayPosY: 0
+  energyContribution: 0

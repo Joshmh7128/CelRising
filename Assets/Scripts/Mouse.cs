@@ -7,12 +7,12 @@ public class Mouse : MonoBehaviour
     [SerializeField] Player player;
     [SerializeField] TileClass highlightedTile;
     [SerializeField] SlotClass highlightedSlot;
-    [SerializeField] AudioSource pickupAudio, placeAudio;
+    [SerializeField] AudioSource pickupAudio, placeAudio, unableAudio;
 
     private void Update()
     {
         // check if we can pick it up
-        if (highlightedTile && !player.heldTile && !highlightedTile.isPermanent)
+        if (highlightedTile && !player.heldTile && !highlightedTile.isPermanent && !highlightedTile.isBedrock)
         {
             // if we press the mouse button
             if (Input.GetMouseButtonDown(0))
@@ -31,6 +31,13 @@ public class Mouse : MonoBehaviour
                 placeAudio.Play();
                 // replace it it
                 highlightedTile.OnCycle();
+            }
+        } else if (highlightedTile && !player.heldTile && (highlightedTile.isPermanent || highlightedTile.isBedrock))
+        {
+            // if we press the mouse button
+            if (Input.GetMouseButtonDown(0))
+            {
+                unableAudio.Play();
             }
         }
 
@@ -68,7 +75,6 @@ public class Mouse : MonoBehaviour
                 highlightedSlot = null;
             }
         }
-
     }
 
     private void OnTriggerStay(Collider other)

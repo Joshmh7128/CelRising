@@ -9,6 +9,7 @@ public class TileClass : MonoBehaviour
     public bool isPermanent;
     public bool becomesPermanent;
     public bool inSlot; // are we in a slot?
+    public bool isBedrock; // is this bedrock?
     SlotClass slot;
     float highlightAlphaLerp;
     [SerializeField] float highlightAlphaLerpSpeed; // how fast do we lerp too and from our current alpha state
