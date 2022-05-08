@@ -21,11 +21,13 @@ public class TileClass : MonoBehaviour
     [SerializeField] Renderer highlightRenderer;
     [SerializeField] GameObject belowTile; // the tile that is revealed underneath ours
     public Generator.tileTypes tileType;
-    public float arrayPosX, arrayPosY; // our x and y position in the tile array
+    public int arrayPosX, arrayPosY; // our x and y position in the tile array
 
     // game mechanic variables
     [SerializeField] float energyContribution; // how much energy do we contribute or take from the system?
 
+    // all of our tile effects
+    [SerializeField] List<TileEffect> tileEffects;
 
     private void Start()
     {
@@ -61,7 +63,9 @@ public class TileClass : MonoBehaviour
     public void OnPickup()
     {
         if (!inSlot && !isPermanent)
-        { Instantiate(belowTile, transform.position, Quaternion.identity, null); } 
+        { TileClass tempTileClass = Instantiate(belowTile, transform.position, Quaternion.identity, null).GetComponent<TileClass>();
+            tempTileClass.arrayPosX = arrayPosX; tempTileClass.arrayPosY = arrayPosY;
+        } 
         else if (inSlot)
         {  
             inSlot = false;
@@ -85,6 +89,8 @@ public class TileClass : MonoBehaviour
             if (targetTile.inSlot) { inSlot = true; } else { inSlot = false; }
 
             // set our x and y pos of the tile to be that of the tile we are replacing
+            Debug.Log(targetTile.arrayPosX);
+            Debug.Log(targetTile.arrayPosY);
             arrayPosX = targetTile.arrayPosX;
             arrayPosY = targetTile.arrayPosY;
 
@@ -97,6 +103,15 @@ public class TileClass : MonoBehaviour
             if (energyContribution != 0)
             { ContributeEnergy(); }
 
+        }
+   
+        // make sure to activate all the effects of our tile
+        if (tileEffects != null)
+        {
+            foreach (TileEffect effect in tileEffects)
+            {
+                effect.OnPlace();
+            }
         }
     }
 
@@ -115,6 +130,20 @@ public class TileClass : MonoBehaviour
     public void OnReplace()
     {
         if (!isPermanent)
+        Destroy(gameObject);
+    }
+
+    // overload for when we want to replace an object with a specific type
+    public void OnReplace(Generator.tileTypes tileType)
+    {
+        // instantiate the new tile here, and give it our coordinates
+        TileClass tempTileClass = Instantiate(FindObjectOfType<Generator>().tileTypeList[(int)tileType], transform.position, Quaternion.identity).GetComponent<TileClass>();
+        tempTileClass.arrayPosX = this.arrayPosX;
+        tempTileClass.arrayPosY = this.arrayPosY;
+        // set ourselve in the generator
+        FindObjectOfType<Generator>().tiles[arrayPosX, arrayPosY] = tempTileClass.gameObject;
+
+        // destroy this
         Destroy(gameObject);
     }
 

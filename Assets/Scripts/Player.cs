@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -35,6 +36,12 @@ public class Player : MonoBehaviour
         { 
             Vector3 mouseLerpTarget = hit.point;
             mouseTransform.position = Vector3.Lerp(mouseTransform.position, mouseLerpTarget, mouseLerpSpeed * Time.deltaTime);
+        }
+
+        // reload the scene if we press space
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene(0);
         }
         
     }

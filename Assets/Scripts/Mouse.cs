@@ -47,8 +47,13 @@ public class Mouse : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 placeAudio.Play();
+                // set the coordinates of the tile
+                player.heldTile.arrayPosX = highlightedTile.arrayPosX;
+                player.heldTile.arrayPosY = highlightedTile.arrayPosY;
                 // replace the tile
                 player.heldTile.OnPlace(highlightedTile.transform.position, highlightedTile);
+
+
                 highlightedTile.OnReplace();
             }
 

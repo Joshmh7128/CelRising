@@ -4,7 +4,7 @@ using UnityEngine;
 public class Generator : MonoBehaviour
 {
     // this script generates a map
-    [SerializeField] GameObject[,] tiles; // our 2d tileclass array
+    public GameObject[,] tiles; // our 2d tileclass array
     [SerializeField] int xGenLimit, zGenLimit; // how far to the right and forward can we go?
     public List<GameObject> tileTypeList; // our gameobject tile types
     [SerializeField] float yFacOffset, yFacIncrease; // the offset of our sin wave and the increase overtime
@@ -24,7 +24,9 @@ public class Generator : MonoBehaviour
         dirt,
         rock,
         water,
-        windmill
+        windmill,
+        bedrock,
+        biodome
     }
 
     private void Start()
@@ -38,15 +40,6 @@ public class Generator : MonoBehaviour
         tiles = new GameObject[xGenLimit, zGenLimit];
         // then generate the map
         GenerateMap();
-    }
-
-    private void Update()
-    {
-        // regenerate if we press space
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GenerateMap();
-        }
     }
 
     void GenerateMap()
@@ -119,24 +112,24 @@ public class Generator : MonoBehaviour
                 // 0 to quarter
                 if (tiles[i, j].transform.position.y <= lowQuarterPoint)
                 {
-                    tiles[i, j] = Instantiate(tileTypeList[(int)tileTypes.sand], tiles[i, j].transform);
+                    tiles[i, j] = Instantiate(tileTypeList[(int)tileTypes.sand], tiles[i, j].transform.position, Quaternion.identity);
 
                 } else 
                 // quater to mid
                 if (tiles[i, j].transform.position.y >= lowQuarterPoint && tiles[i, j].transform.position.y < midPoint)
                 {
-                    tiles[i, j] = Instantiate(tileTypeList[(int)tileTypes.dirt], tiles[i, j].transform);
+                    tiles[i, j] = Instantiate(tileTypeList[(int)tileTypes.dirt], tiles[i, j].transform.position, Quaternion.identity);
                 } else
                 // mid to high quarter
                 if (tiles[i, j].transform.position.y >= midPoint && tiles[i, j].transform.position.y < highQuarterPoint)
                 {
-                    tiles[i, j] = Instantiate(tileTypeList[(int)tileTypes.grass], tiles[i, j].transform);
+                    tiles[i, j] = Instantiate(tileTypeList[(int)tileTypes.grass], tiles[i, j].transform.position, Quaternion.identity);
                 }
                 else
                 // high and above
                 if (tiles[i, j].transform.position.y >= highQuarterPoint)
                 {
-                    tiles[i, j] = Instantiate(tileTypeList[(int)tileTypes.rock], tiles[i, j].transform);
+                    tiles[i, j] = Instantiate(tileTypeList[(int)tileTypes.rock], tiles[i, j].transform.position, Quaternion.identity);
                 }
 
                 // then once the tile is placed, set it's position on it's class

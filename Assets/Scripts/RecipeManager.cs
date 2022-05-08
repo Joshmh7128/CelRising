@@ -28,7 +28,8 @@ public class RecipeManager : MonoBehaviour
         finalRock = slot1.hasRock + slot2.hasRock + slot3.hasRock;
 
         // all of our crafting checks
-        CraftingCheckWindmill();
+        CraftingCheckWindmill(); // 2 grass, 1 sand
+        CraftingCheckBiodome(); // 3 sand
     }
 
     void CraftingCheckWindmill()
@@ -38,7 +39,15 @@ public class RecipeManager : MonoBehaviour
         {
             CraftItem(Generator.tileTypes.windmill);
         }
-
+    }
+    
+    void CraftingCheckBiodome()
+    {
+        // the recipe for windmill is 2 grass and 1 sand
+        if (finalSand == 3)
+        {
+            CraftItem(Generator.tileTypes.biodome);
+        }
     }
 
     void CraftItem(Generator.tileTypes tileType)
