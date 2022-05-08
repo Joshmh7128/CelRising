@@ -5,11 +5,16 @@ using UnityEngine;
 public class TileClass : MonoBehaviour
 {
     // are we being hovered over?
-    public bool isHover = false;
+    bool isHover = false;
+    public bool isPermanent;
+    public bool becomesPermanent;
     public bool inSlot; // are we in a slot?
     SlotClass slot;
     float highlightAlphaLerp;
     [SerializeField] float highlightAlphaLerpSpeed; // how fast do we lerp too and from our current alpha state
+
+    // game management
+    GameManager gameManager;
     Player player; 
     // our gameobject
     [SerializeField] Renderer highlightRenderer;
@@ -17,10 +22,16 @@ public class TileClass : MonoBehaviour
     public Generator.tileTypes tileType;
     public float arrayPosX, arrayPosY; // our x and y position in the tile array
 
+    // game mechanic variables
+    [SerializeField] float energyContribution; // how much energy do we contribute or take from the system?
+
+
     private void Start()
     {
         // find our player controller
         player = FindObjectOfType<Player>();
+        // 
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -48,7 +59,7 @@ public class TileClass : MonoBehaviour
     // what to do when we are picked up
     public void OnPickup()
     {
-        if (!inSlot)
+        if (!inSlot && !isPermanent)
         { Instantiate(belowTile, transform.position, Quaternion.identity, null); } 
         else if (inSlot)
         {  
@@ -65,14 +76,27 @@ public class TileClass : MonoBehaviour
     // what to do when we are placed
     public void OnPlace(Vector3 position, TileClass targetTile)
     {
-        player.heldTile = null;
-        transform.position = position;
-        gameObject.GetComponent<Collider>().enabled = true;
-        if (targetTile.inSlot) { inSlot = true; } else { inSlot = false; }
+        if (!targetTile.isPermanent)
+        {
+            player.heldTile = null;
+            transform.position = position;
+            gameObject.GetComponent<Collider>().enabled = true;
+            if (targetTile.inSlot) { inSlot = true; } else { inSlot = false; }
 
-        // set our x and y pos of the tile to be that of the tile we are replacing
-        arrayPosX = targetTile.arrayPosX;
-        arrayPosY = targetTile.arrayPosY;
+            // set our x and y pos of the tile to be that of the tile we are replacing
+            arrayPosX = targetTile.arrayPosX;
+            arrayPosY = targetTile.arrayPosY;
+
+            if (becomesPermanent)
+            {
+                isPermanent = true;
+            }
+
+            // check if we contribute energy
+            if (energyContribution != 0)
+            { ContributeEnergy(); }
+
+        }
     }
 
     public void OnPlaceInSlot(Vector3 position, SlotClass localSlot)
@@ -89,14 +113,16 @@ public class TileClass : MonoBehaviour
     // what to do when we are replaced
     public void OnReplace()
     {
+        if (!isPermanent)
         Destroy(gameObject);
     }
 
     public void OnCycle()
     {
+        /*
         if (!inSlot)
         { Instantiate(belowTile, transform.position, Quaternion.identity, null); }
-        Destroy(gameObject);
+        Destroy(gameObject);*/
     }
 
     void HoverShow()
@@ -126,5 +152,10 @@ public class TileClass : MonoBehaviour
         {
             isHover = false;
         }
+    }
+
+    void ContributeEnergy()
+    {
+        gameManager.energyAmount += energyContribution;
     }
 }

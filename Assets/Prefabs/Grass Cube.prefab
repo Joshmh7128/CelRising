@@ -2427,12 +2427,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a960c8cac31b8545936e0b3a7a949d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isHover: 0
+  isPermanent: 0
+  becomesPermanent: 0
   inSlot: 0
   highlightAlphaLerpSpeed: 0.25
   highlightRenderer: {fileID: 3136760576543125155}
-  belowTile: {fileID: 5297512767498372453, guid: 087859abc8a534c46877347248f1f0dc, type: 3}
+  belowTile: {fileID: 5297512767498372453, guid: cca8a7ceb29f0274091bb69a547e8b24, type: 3}
   tileType: 2
+  arrayPosX: 0
+  arrayPosY: 0
 --- !u!1 &9081498333244898576
 GameObject:
   m_ObjectHideFlags: 0

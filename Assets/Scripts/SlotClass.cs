@@ -40,6 +40,14 @@ public class SlotClass : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CleanSlot();
+        }
+    }
+
     void ResetValues()
     {
         hasSand = 0; hasRock = 0; hasGrass = 0; hasDirt = 0;
@@ -48,6 +56,7 @@ public class SlotClass : MonoBehaviour
     public void CleanSlot()
     {
         Destroy(heldTile.gameObject);
+        heldTile = null;
         ResetValues();
     }
 }

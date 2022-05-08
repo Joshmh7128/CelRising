@@ -2394,7 +2394,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e51d0240b66409449afc67d0af07c0ea, type: 2}
+  - {fileID: 2100000, guid: 937318000d0247d4db200b4cd970c21d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9219,7 +9219,7 @@ GameObject:
   - component: {fileID: 5902176666460347308}
   - component: {fileID: 8902328356995936478}
   m_Layer: 0
-  m_Name: Rock Cube
+  m_Name: Bedrock Tile
   m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9275,7 +9275,7 @@ MonoBehaviour:
   inSlot: 0
   highlightAlphaLerpSpeed: 0.25
   highlightRenderer: {fileID: 5560743226149111011}
-  belowTile: {fileID: 5297512767498372453, guid: cca8a7ceb29f0274091bb69a547e8b24, type: 3}
+  belowTile: {fileID: 5297512767498372453}
   tileType: 4
   arrayPosX: 0
   arrayPosY: 0

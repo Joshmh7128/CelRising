@@ -12,7 +12,7 @@ public class Mouse : MonoBehaviour
     private void Update()
     {
         // check if we can pick it up
-        if (highlightedTile && !player.heldTile)
+        if (highlightedTile && !player.heldTile && !highlightedTile.isPermanent)
         {
             // if we press the mouse button
             if (Input.GetMouseButtonDown(0))
@@ -34,7 +34,7 @@ public class Mouse : MonoBehaviour
             }
         }
 
-        if (highlightedTile && player.heldTile)
+        if (highlightedTile && player.heldTile && !highlightedTile.isPermanent)
         {
             // if we press the mouse button
             if (Input.GetMouseButtonDown(0))
@@ -50,13 +50,14 @@ public class Mouse : MonoBehaviour
             {
                 // delete the tile
                 Destroy(player.heldTile.gameObject);
+                player.heldTile = null;
             }
         }
 
         if (highlightedSlot && player.heldTile)
         {
             // if we press the mouse button
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && player.heldTile != null)
             {
                 placeAudio.Play();
                 // make sure we do not have a highlighted tile
